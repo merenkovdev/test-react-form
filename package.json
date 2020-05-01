@@ -1,0 +1,33 @@
+{
+  "name": "test-react-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merenkovdev/test-react-form.git"
+  },
+  "keywords": [
+    "test",
+    "react",
+    "redux"
+  ],
+  "author": "merenkov.dev@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/merenkovdev/test-react-form/issues"
+  },
+  "homepage": "https://github.com/merenkovdev/test-react-form#readme",
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
