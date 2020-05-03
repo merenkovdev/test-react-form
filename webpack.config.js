@@ -24,11 +24,16 @@ module.exports = (env = {}) => {
 		context: path.resolve(__dirname, 'src'),
 		mode:  isProd ? 'production' : 'development',
 		devtool: isDev ? 'source-map' : false,
+		resolve: {
+			modules: [
+				path.resolve(__dirname),
+				path.resolve(__dirname, 'node_modules'),
+			]
+		},
 		entry: {
 			main: [ './index.js'],
 		},
 		devServer: {
-			port: 4200,
 			hot: isDev,
 		},
 		output: {
