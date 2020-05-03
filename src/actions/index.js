@@ -1,10 +1,18 @@
 const publicationsLoaded = (publications) => {
 	return {
-		type: 'PUBLICATIONS_LOADED',
+		type: 'FETCH_PUBLICATIONS_SUCCESS',
 		payload: publications,
+	};
+};
+
+const publicationsError = (error) => {
+	return {
+		type: 'FETCH_PUBLICATIONS_FAILURE',
+		payload: error,
 	};
 };
 
 export {
 	publicationsLoaded,
+	publicationsError,
 };

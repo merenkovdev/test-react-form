@@ -15,9 +15,11 @@ export default class PublicationService {
 	];
 
 	getData() {
-		return new Promise((resolve) => {
+		return new Promise((resolve, reject) => {
 			setTimeout(() => {
 				resolve(this.data);
+				// Если нужно обработать ошибку
+				// reject('Произошла ошибка');
 			}, SERVER_REQUEST_DELAY);
 		});
 	}
