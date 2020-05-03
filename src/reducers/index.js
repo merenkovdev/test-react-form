@@ -1,12 +1,14 @@
 const initialState = {
-	publication: [],
+	publications: [],
+	loading: true,
 };
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case 'PUBLICATIONS_LOADED':
 			return {
-				publication: action.payload,
+				publications: action.payload,
+				loading: false,
 			};
 
 		default:

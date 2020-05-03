@@ -1,6 +1,6 @@
 const publicationsLoaded = (publications) => {
 	return {
-		type: 'PUBLICATION_LOADED',
+		type: 'PUBLICATIONS_LOADED',
 		payload: publications,
 	};
 };
