@@ -1,3 +1,9 @@
+const publicationsRequested = () => {
+	return {
+		type: 'FETCH_PUBLICATIONS_REQUEST',
+	};
+};
+
 const publicationsLoaded = (publications) => {
 	return {
 		type: 'FETCH_PUBLICATIONS_SUCCESS',
@@ -46,12 +52,18 @@ const removePublication = (id) => {
 	};
 };
 
+const fetchPublications = (publicationsService) => () => (dispatch) => {
+	dispatch(publicationsRequested());
+	publicationsService.getData()
+		.then((data) => dispatch(publicationsLoaded(data)))
+		.catch((err) => dispatch(publicationsError(err)));
+};
+
 export {
 	setPublicationTitle,
 	setPublicationText,
-	publicationsLoaded,
-	publicationsError,
 	addPublication,
 	editPublication,
 	removePublication,
+	fetchPublications,
 };

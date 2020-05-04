@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
-	publicationsLoaded,
-	publicationsError,
 	editPublication,
 	removePublication,
+	fetchPublications,
 } from 'src/actions';
 import withPublicationService from '../hoc/with-publication-service';
 import PublicationListItem from '../publication-list-item';
@@ -39,19 +38,7 @@ const PublicationListView = ({ publications, handleRemove, handleEdit }) => {
 
 class PublicationList extends Component {
 	componentDidMount() {
-		const {
-			publicationService,
-			handleSave,
-			handleError,
-		} = this.props;
-
-		publicationService.getData()
-			.then(response => handleSave(response))
-			.catch(error => {
-				console.log(error);
-
-				handleError();
-			});
+		this.props.fetchPublications();
 	}
 
 	render() {
@@ -83,12 +70,11 @@ const mapStateToProps =	({ publications, loading }) => {
 	}
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, { publicationService }) => {
 	return bindActionCreators({
 		handleEdit: editPublication,
 		handleRemove: removePublication,
-		handleSave: publicationsLoaded,
-		handleError: publicationsError,
+		fetchPublications: fetchPublications(publicationService),
 	}, dispatch)
 };
 

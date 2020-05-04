@@ -1,15 +1,39 @@
+const emptyFormData = {
+	id: 0,
+	title: '',
+	text: '',
+};
+
 const initialState = {
 	publications: [],
 	loading: true,
-	form: {
-		id: 0,
-		title: '',
-		text: '',
+	form: emptyFormData,
+};
+
+const updatePublicationItems = (items, item, idx) => {
+	if (idx === -1) {
+		return [
+			...items,
+			item
+		];
 	}
+
+	return [
+		...items.slice(0, idx),
+		item,
+		...items.slice(idx + 1)
+	];
 };
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
+		case 'FETCH_PUBLICATIONS_REQUEST':
+			return {
+				...state,
+				publications: [],
+				loading: true,
+			};
+
 		case 'FETCH_PUBLICATIONS_SUCCESS':
 			return {
 				...state,
@@ -24,39 +48,26 @@ const reducer = (state = initialState, action) => {
 				loading: false,
 			};
 
+		case 'RESET_FORM_DATA': {
+			return {
+				...state,
+				form: emptyFormData,
+			};
+		}
+
 		case 'ADD_PUBLICATION': {
 			const { id } = action.payload;
-			const index = state.publications.findIndex((publication) => publication.id === id);
-
-			if (index < 0) {
-				return {
-					...state,
-					form: {
-						id: 0,
-						title: '',
-						text: '',
-					},
-					publications: [
-						...state.publications,
-						{ ...action.payload }
-					],
-				};
-			}
+			const index = state.publications.findIndex(
+				(publication) => publication.id === id
+			);
 
 			return {
 				...state,
-				form: {
-					id: 0,
-					title: '',
-					text: '',
-				},
-				publications: [
-					...state.publications.slice(0, index),
-					{ ...action.payload },
-					...state.publications.slice(index + 1),
-				],
+				form: emptyFormData,
+				publications: updatePublicationItems(state.publications, action.payload, index),
 			};
 		}
+
 		case 'SET_PUBLICATION_TITLE':
 			return {
 				...state,
@@ -91,7 +102,10 @@ const reducer = (state = initialState, action) => {
 
 		case 'REMOVE_PUBLICATION': {
 			const id = action.payload;
-			const indexPublication = state.publications.findIndex((publication) => publication.id === id);
+			const indexPublication = state.publications.findIndex(
+				(publication) => publication.id === id
+			);
+
 			if (indexPublication < 0) {
 				return state;
 			}
