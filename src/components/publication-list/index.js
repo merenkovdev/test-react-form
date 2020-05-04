@@ -63,9 +63,9 @@ class PublicationList extends Component {
 	}
 };
 
-const mapStateToProps =	({ publications, loading }) => {
+const mapStateToProps =	({ publications: { items, loading }}) => {
 	return {
-		publications,
+		publications: items,
 		loading,
 	}
 };

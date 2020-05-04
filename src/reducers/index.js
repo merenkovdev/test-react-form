@@ -7,8 +7,10 @@ const emptyFormData = {
 };
 
 const initialState = {
-	publications: [],
-	loading: true,
+	publications: {
+		items: [],
+		loading: true,
+	},
 	form: emptyFormData,
 };
 
@@ -32,23 +34,66 @@ const reducer = (state = initialState, action) => {
 		case 'FETCH_PUBLICATIONS_REQUEST':
 			return {
 				...state,
-				publications: [],
-				loading: true,
+				publications: {
+					items: [],
+					loading: true,
+				},
 			};
 
 		case 'FETCH_PUBLICATIONS_SUCCESS':
 			return {
 				...state,
-				publications: action.payload,
-				loading: false,
+				publications: {
+					items: action.payload,
+					loading: false,
+				},
 			};
 
 		case 'FETCH_PUBLICATIONS_FAILURE':
 			return {
 				...state,
-				publications: [],
-				loading: false,
+				publications: {
+					items: [],
+					loading: false,
+				},
 			};
+
+		case 'ADD_PUBLICATION': {
+			const { id } = action.payload;
+			const index = state.publications.items.findIndex(
+				(publication) => publication.id === id
+			);
+
+			return {
+				...state,
+				publications: {
+					items: updatePublicationItems(state.publications.items, action.payload, index),
+					loading: false,
+				},
+			};
+		}
+
+		case 'REMOVE_PUBLICATION': {
+			const id = action.payload;
+			const indexPublication = state.publications.items.findIndex(
+				(publication) => publication.id === id
+			);
+
+			if (indexPublication < 0) {
+				return state;
+			}
+
+			return {
+				...state,
+				publications: {
+					items: [
+						...state.publications.items.slice(0, indexPublication),
+						...state.publications.items.slice(indexPublication + 1),
+					],
+					loading: false,
+				},
+			};
+		}
 
 		case 'RESET_FORM_DATA': {
 			return {
@@ -76,18 +121,6 @@ const reducer = (state = initialState, action) => {
 				},
 			};
 
-		case 'ADD_PUBLICATION': {
-			const { id } = action.payload;
-			const index = state.publications.findIndex(
-				(publication) => publication.id === id
-			);
-
-			return {
-				...state,
-				publications: updatePublicationItems(state.publications, action.payload, index),
-			};
-		}
-
 		case 'SET_PUBLICATION_TITLE':
 			return {
 				...state,
@@ -108,7 +141,7 @@ const reducer = (state = initialState, action) => {
 
 		case 'EDIT_PUBLICATION': {
 			const id = action.payload;
-			const publication = state.publications.find((publication) => publication.id === id);
+			const publication = state.publications.items.find((publication) => publication.id === id);
 
 			return {
 				...state,
@@ -117,25 +150,6 @@ const reducer = (state = initialState, action) => {
 					title: publication.title,
 					text: publication.text,
 				},
-			};
-		}
-
-		case 'REMOVE_PUBLICATION': {
-			const id = action.payload;
-			const indexPublication = state.publications.findIndex(
-				(publication) => publication.id === id
-			);
-
-			if (indexPublication < 0) {
-				return state;
-			}
-
-			return {
-				...state,
-				publications: [
-					...state.publications.slice(0, indexPublication),
-					...state.publications.slice(indexPublication + 1),
-				],
 			};
 		}
 
