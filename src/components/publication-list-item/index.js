@@ -1,12 +1,21 @@
 import React from 'react';
 
-const PublicationListItem = ({ publication }) => {
+const PublicationListItem = ({ publication, handleEdit, handleRemove }) => {
+	const {
+		title,
+		text,
+		id,
+	} = publication;
 	return (
 		<article>
 			<header>
-				<h2>{ publication.title }</h2>
+				<h2>{ title }</h2>
 			</header>
-			<p>{ publication.description }</p>
+			<p>{ text }</p>
+			<div>
+				<button onClick={() => handleEdit(id)} type="button">Редактировать</button>
+				<button onClick={() => handleRemove(id)} type="button">Удалить</button>
+			</div>
 		</article>
 	);
 };

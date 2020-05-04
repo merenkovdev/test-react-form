@@ -1,14 +1,15 @@
 import React from 'react';
-import withPublicationService from '../hoc/with-publication-service';
 import PublicationList from '../publication-list';
+import FormAdd from '../form-add';
 
-const App = ({ publicationService }) => {
+const App = () => {
 	return (
-		<>
-			<h1>Заголовок</h1>
+		<div className="main">
+			<h1>Форма</h1>
+			<FormAdd />
 			<PublicationList />
-		</>
+		</div>
 	);
 };
 
-export default withPublicationService()(App);
+export default App;
