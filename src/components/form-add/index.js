@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setPublicationTitle, setPublicationText, addPublication } from 'src/actions';
+import { setPublicationTitle, setPublicationText, savePublication } from 'src/actions';
 
-const SERVER_REQUEST_DELAY = 1000;
 const MIN_TEXT_LENGTH = 1;
 
 class FormAdd extends Component {
@@ -13,25 +12,6 @@ class FormAdd extends Component {
 
 	onChangeText = (event) => {
 		this.props.onChangeText(event.target.value);
-	}
-
-	handleError = (error) => {
-		// Ф-ия для обработки ошибок при выполении запроса
-		console.log(error);
-	}
-
-	sendDataToSave = (data) => {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				// Имитация создания id на сервере.
-				if (data.id === 0) {
-					data.id = (~~(Math.random()*1e8)).toString(16)
-				}
-				resolve(data);
-				// Если нужно обработать ошибку
-				// reject('Произошла ошибка');
-			}, SERVER_REQUEST_DELAY);
-		});
 	}
 
 	validateData({ title, text }) {
@@ -66,9 +46,7 @@ class FormAdd extends Component {
 			return;
 		}
 
-		this.sendDataToSave({ id, title, text })
-			.then((response) => this.props.handleSave(response))
-			.catch((error) => handleError(error));
+		this.props.handleSave();
 	}
 
 	render() {
@@ -106,7 +84,7 @@ const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		onChangeTitle: setPublicationTitle,
 		onChangeText: setPublicationText,
-		handleSave: addPublication,
+		handleSave: savePublication(),
 	}, dispatch)
 };
 

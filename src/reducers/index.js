@@ -63,7 +63,6 @@ const reducer = (state = initialState, action) => {
 
 			return {
 				...state,
-				form: emptyFormData,
 				publications: updatePublicationItems(state.publications, action.payload, index),
 			};
 		}

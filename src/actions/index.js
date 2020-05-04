@@ -17,6 +17,12 @@ const publicationsError = () => {
 	};
 };
 
+const resetFormPublication = () => {
+	return {
+		type: 'RESET_FORM_DATA',
+	};
+};
+
 const addPublication = (publication) => {
 	return {
 		type: 'ADD_PUBLICATION',
@@ -59,10 +65,34 @@ const fetchPublications = (publicationsService) => () => (dispatch) => {
 		.catch((err) => dispatch(publicationsError(err)));
 };
 
+const savePublication = () => () => (dispatch, getState) => {
+	const SERVER_REQUEST_DELAY = 1000;
+	const { form: { id, title, text }} = getState();
+
+	const sendDataToSave = (data) => {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				// Имитация создания id на сервере.
+				if (data.id === 0) {
+					data.id = (~~(Math.random()*1e8)).toString(16)
+				}
+				resolve(data);
+				// Если нужно обработать ошибку
+				// reject('Произошла ошибка');
+			}, SERVER_REQUEST_DELAY);
+		});
+	}
+
+	sendDataToSave({ id, title, text })
+		.then((response) => dispatch(addPublication(response)))
+		.then(() => dispatch(resetFormPublication()));
+		// .catch((error) => handleError(error));
+};
+
 export {
 	setPublicationTitle,
 	setPublicationText,
-	addPublication,
+	savePublication,
 	editPublication,
 	removePublication,
 	fetchPublications,
