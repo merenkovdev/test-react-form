@@ -8,6 +8,8 @@ import { PublicationServiceProvider } from './components/publication-service-con
 
 import store from './store';
 
+import './styles/base.scss';
+
 const publicationService = new PublicationService();
 
 ReactDOM.render(
