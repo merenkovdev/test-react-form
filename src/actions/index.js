@@ -23,6 +23,19 @@ const resetFormPublication = () => {
 	};
 };
 
+const setErrorFormPublication = (error) => {
+	return {
+		type: 'SET_ERROR_FORM_DATA',
+		payload: error,
+	};
+};
+
+const savePublicationRequest = () => {
+	return {
+		type: 'SAVE_PUBLICATION_REQUEST',
+	};
+};
+
 const addPublication = (publication) => {
 	return {
 		type: 'ADD_PUBLICATION',
@@ -78,20 +91,22 @@ const savePublication = () => () => (dispatch, getState) => {
 				}
 				resolve(data);
 				// Если нужно обработать ошибку
-				// reject('Произошла ошибка');
+				// reject('Произошла ошибка при сохранении');
 			}, SERVER_REQUEST_DELAY);
 		});
 	}
 
+	dispatch(savePublicationRequest());
 	sendDataToSave({ id, title, text })
 		.then((response) => dispatch(addPublication(response)))
-		.then(() => dispatch(resetFormPublication()));
-		// .catch((error) => handleError(error));
+		.then(() => dispatch(resetFormPublication()))
+		.catch((error) => dispatch(setErrorFormPublication(error)));
 };
 
 export {
 	setPublicationTitle,
 	setPublicationText,
+	setErrorFormPublication,
 	savePublication,
 	editPublication,
 	removePublication,

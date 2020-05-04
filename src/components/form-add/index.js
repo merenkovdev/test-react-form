@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setPublicationTitle, setPublicationText, savePublication } from 'src/actions';
+import {
+	setPublicationTitle,
+	setPublicationText,
+	setErrorFormPublication,
+	savePublication,
+} from 'src/actions';
 
 const MIN_TEXT_LENGTH = 1;
 
@@ -30,6 +35,8 @@ class FormAdd extends Component {
 			id,
 			title,
 			text,
+			handleSave,
+			handleError,
 		} = this.props;
 
 		const dataToSave = {
@@ -43,49 +50,55 @@ class FormAdd extends Component {
 		event.preventDefault();
 
 		if (error) {
+			handleError(error);
 			return;
 		}
 
-		this.props.handleSave();
+		handleSave();
 	}
 
 	render() {
 		const {
 			title,
 			text,
+			error,
+			sending,
 		} = this.props;
 
 		return (
-			<form onSubmit={this.onSubmit}>
-				<label htmlFor="">
-					Заголовок:
-					<input type="text" onChange={this.onChangeTitle} value={title} />
-				</label>
-				<br/>
-				<label htmlFor="text">Текст</label>
-				<textarea onChange={this.onChangeText} id="text" value={ text } />
-				<br/>
-				<button type="submit">Отправить</button>
-			</form>
+			<>
+				<form onSubmit={this.onSubmit}>
+					<label>
+						Заголовок:
+						<input type="text" onChange={this.onChangeTitle} value={title} />
+					</label>
+					<br/>
+					<label htmlFor="text">Текст</label>
+					<textarea onChange={this.onChangeText} id="text" value={ text } />
+					<br/>
+					<button type="submit">Отправить</button>
+				</form>
+				{ error &&
+					<p>{ error }</p>
+				}
+				{ sending && <span>Сохранение</span>}
+			</>
 		);
 	}
 };
 
 
-const mapStateToProps =	({ form: { id, title, text }}) => {
-	return {
-		id,
-		title,
-		text,
-	}
+const mapStateToProps =	({ form }) => {
+	return { ...form };
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		onChangeTitle: setPublicationTitle,
 		onChangeText: setPublicationText,
+		handleError: setErrorFormPublication,
 		handleSave: savePublication(),
-	}, dispatch)
+	}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormAdd);

@@ -2,6 +2,8 @@ const emptyFormData = {
 	id: 0,
 	title: '',
 	text: '',
+	error: '',
+	sending: false,
 };
 
 const initialState = {
@@ -54,6 +56,25 @@ const reducer = (state = initialState, action) => {
 				form: emptyFormData,
 			};
 		}
+
+		case 'SET_ERROR_FORM_DATA': {
+			return {
+				...state,
+				form: {
+					...state.form,
+					error: action.payload,
+				},
+			};
+		}
+
+		case 'SAVE_PUBLICATION_REQUEST':
+			return {
+				...state,
+				form: {
+					...state.form,
+					sending: true,
+				},
+			};
 
 		case 'ADD_PUBLICATION': {
 			const { id } = action.payload;
