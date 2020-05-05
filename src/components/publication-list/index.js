@@ -26,8 +26,8 @@ const PublicationListView = ({ publications, handleRemove, handleEdit }) => {
 								publication,
 								handleRemove,
 								handleEdit,
-								key: publication.id,
 							}}
+							key={publication.id}
 						/>
 					)
 				)
@@ -61,13 +61,13 @@ class PublicationList extends Component {
 				/>
 		);
 	}
-};
+}
 
 const mapStateToProps =	({ publications: { items, loading }}) => {
 	return {
 		publications: items,
 		loading,
-	}
+	};
 };
 
 const mapDispatchToProps = (dispatch, { publicationService }) => {
@@ -75,7 +75,7 @@ const mapDispatchToProps = (dispatch, { publicationService }) => {
 		handleEdit: editPublication,
 		handleRemove: removePublication,
 		fetchPublications: fetchPublications(publicationService),
-	}, dispatch)
+	}, dispatch);
 };
 
 export default compose(

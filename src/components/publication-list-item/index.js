@@ -6,6 +6,7 @@ const PublicationListItem = ({ publication, handleEdit, handleRemove }) => {
 		text,
 		id,
 	} = publication;
+
 	return (
 		<article>
 			<header>

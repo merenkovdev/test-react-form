@@ -2,14 +2,14 @@ const updatePublicationItems = (items, item, idx) => {
 	if (idx === -1) {
 		return [
 			...items,
-			item
+			item,
 		];
 	}
 
 	return [
 		...items.slice(0, idx),
 		item,
-		...items.slice(idx + 1)
+		...items.slice(idx + 1),
 	];
 };
 
@@ -42,9 +42,8 @@ const updatePublications = (state, action) => {
 
 		case 'ADD_PUBLICATION': {
 			const { id } = action.payload;
-			const index = state.publications.items.findIndex(
-				(publication) => publication.id === id
-			);
+			const index = state.publications.items
+				.findIndex((item) => item.id === id);
 
 			return {
 				...state.publications,
@@ -54,9 +53,8 @@ const updatePublications = (state, action) => {
 
 		case 'REMOVE_PUBLICATION': {
 			const id = action.payload;
-			const indexPublication = state.publications.items.findIndex(
-				(publication) => publication.id === id
-			);
+			const indexPublication = state.publications.items
+				.findIndex((publication) => publication.id === id);
 
 			if (indexPublication < 0) {
 				return state;

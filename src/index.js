@@ -18,5 +18,5 @@ ReactDOM.render(
 			<App />
 		</PublicationServiceProvider>
 	</Provider>,
-	document.getElementById('root')
+	document.getElementById('root'),
 );

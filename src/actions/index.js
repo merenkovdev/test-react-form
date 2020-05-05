@@ -1,61 +1,43 @@
-const publicationsRequested = () => {
-	return {
-		type: 'FETCH_PUBLICATIONS_REQUEST',
-	};
-};
+const publicationsRequested = () => ({
+	type: 'FETCH_PUBLICATIONS_REQUEST',
+});
 
-const publicationsLoaded = (publications) => {
-	return {
-		type: 'FETCH_PUBLICATIONS_SUCCESS',
-		payload: publications,
-	};
-};
+const publicationsLoaded = (publications) => ({
+	type: 'FETCH_PUBLICATIONS_SUCCESS',
+	payload: publications,
+});
 
-const publicationsError = () => {
-	return {
-		type: 'FETCH_PUBLICATIONS_FAILURE',
-	};
-};
+const publicationsError = () => ({
+	type: 'FETCH_PUBLICATIONS_FAILURE',
+});
 
-const resetFormPublication = () => {
-	return {
-		type: 'RESET_FORM_DATA',
-	};
-};
+const resetFormPublication = () => ({
+	type: 'RESET_FORM_DATA',
+});
 
-const setErrorFormPublication = (error) => {
-	return {
-		type: 'SET_ERROR_FORM_DATA',
-		payload: error,
-	};
-};
+const setErrorFormPublication = (error) => ({
+	type: 'SET_ERROR_FORM_DATA',
+	payload: error,
+});
 
-const savePublicationRequest = () => {
-	return {
-		type: 'SAVE_PUBLICATION_REQUEST',
-	};
-};
+const savePublicationRequest = () => ({
+	type: 'SAVE_PUBLICATION_REQUEST',
+});
 
-const addPublication = (publication) => {
-	return {
-		type: 'ADD_PUBLICATION',
-		payload: publication,
-	};
-};
+const addPublication = (publication) => ({
+	type: 'ADD_PUBLICATION',
+	payload: publication,
+});
 
-const setPublicationTitle = (title) => {
-	return {
-		type: 'SET_PUBLICATION_TITLE',
-		payload: title,
-	};
-};
+const setPublicationTitle = (title) => ({
+	type: 'SET_PUBLICATION_TITLE',
+	payload: title,
+});
 
-const setPublicationText = (text) => {
-	return {
-		type: 'SET_PUBLICATION_TEXT',
-		payload: text,
-	};
-};
+const setPublicationText = (text) => ({
+	type: 'SET_PUBLICATION_TEXT',
+	payload: text,
+});
 
 const editPublication = (id) => {
 	return {
@@ -64,12 +46,10 @@ const editPublication = (id) => {
 	};
 };
 
-const removePublication = (id) => {
-	return {
-		type: 'REMOVE_PUBLICATION',
-		payload: id,
-	};
-};
+const removePublication = (id) => ({
+	type: 'REMOVE_PUBLICATION',
+	payload: id,
+});
 
 const fetchPublications = (publicationsService) => () => (dispatch) => {
 	dispatch(publicationsRequested());
@@ -80,21 +60,21 @@ const fetchPublications = (publicationsService) => () => (dispatch) => {
 
 const savePublication = () => () => (dispatch, getState) => {
 	const SERVER_REQUEST_DELAY = 1000;
-	const { form: { id, title, text }} = getState();
+	const { form: { id, title, text } } = getState();
 
 	const sendDataToSave = (data) => {
 		return new Promise((resolve, reject) => {
 			setTimeout(() => {
 				// Имитация создания id на сервере.
 				if (data.id === 0) {
-					data.id = (~~(Math.random()*1e8)).toString(16)
+					data.id = Math.floor(Math.random() * 1e8).toString(16);
 				}
 				resolve(data);
 				// Если нужно обработать ошибку
 				// reject('Произошла ошибка при сохранении');
 			}, SERVER_REQUEST_DELAY);
 		});
-	}
+	};
 
 	dispatch(savePublicationRequest());
 	sendDataToSave({ id, title, text })

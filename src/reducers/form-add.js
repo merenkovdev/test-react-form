@@ -33,21 +33,23 @@ const updateForm = (state, action) => {
 			return {
 				...state.form,
 				title: action.payload,
+				error: '',
 			};
 
 		case 'SET_PUBLICATION_TEXT':
 			return {
 				...state.form,
 				text: action.payload,
+				error: '',
 			};
 
 		case 'EDIT_PUBLICATION': {
 			const id = action.payload;
-			const publication = state.publications.items.find((publication) => publication.id === id);
+			const publication = state.publications.items.find((item) => item.id === id);
 
 			return {
 				...state.form,
-				id: id,
+				id,
 				title: publication.title,
 				text: publication.text,
 			};
