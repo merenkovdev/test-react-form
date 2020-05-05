@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = (env = {}) => {
 	const { mode = 'development' } = env;
@@ -16,8 +17,41 @@ module.exports = (env = {}) => {
 	const getStyleLoaders = () => {
 		return [
 			isProd ? MiniCssExtractPlugin.loader : 'style-loader',
-			'css-loader'
+			'css-loader',
+			{
+				loader: 'postcss-loader',
+				options: {
+					ident: 'postcss',
+					plugins: [
+						require('autoprefixer')({}),
+					]
+				},
+			},
 		];
+	};
+
+	const getPlugins = () => {
+		const plugins = [
+			new HtmlWebpackPlugin({
+				template: path.resolve('index.html'),
+			}),
+			new CleanWebpackPlugin(),
+			new MiniCssExtractPlugin({
+				filename: filename('css'),
+			}),
+		];
+
+		if (isProd) {
+			plugins.push(
+				new OptimizeCssAssetsPlugin({
+					assetNameRegExp: /\.css$/g,
+					cssProcessor: require('cssnano'),
+					canPrint: true
+				})
+			);
+		}
+
+		return plugins;
 	};
 
 	return {
@@ -40,15 +74,7 @@ module.exports = (env = {}) => {
 			filename: filename('js'),
 			path: path.resolve(__dirname, 'dist'),
 		},
-		plugins: [
-			new HtmlWebpackPlugin({
-				template: path.resolve('index.html'),
-			}),
-			new CleanWebpackPlugin(),
-			new MiniCssExtractPlugin({
-				filename: filename('css'),
-			})
-		],
+		plugins: [...getPlugins()],
 		module: {
 			rules: [
 				{
