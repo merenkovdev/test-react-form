@@ -72,7 +72,7 @@ module.exports = (env = {}) => {
 		},
 		output: {
 			filename: filename('js'),
-			path: path.resolve(__dirname, 'dist'),
+			path: path.resolve(__dirname, 'dst'),
 		},
 		plugins: [...getPlugins()],
 		module: {
