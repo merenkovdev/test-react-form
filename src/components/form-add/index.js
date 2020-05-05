@@ -8,6 +8,8 @@ import {
 	savePublication,
 } from 'src/actions';
 
+import './form.scss';
+
 const MIN_TEXT_LENGTH = 1;
 
 class FormAdd extends Component {
@@ -67,21 +69,32 @@ class FormAdd extends Component {
 
 		return (
 			<>
-				<form onSubmit={this.onSubmit}>
-					<label>
-						Заголовок:
-						<input type="text" onChange={this.onChangeTitle} value={title} />
-					</label>
-					<br/>
-					<label htmlFor="text">Текст</label>
-					<textarea onChange={this.onChangeText} id="text" value={ text } />
-					<br/>
-					<button type="submit">Отправить</button>
+				<form className="form" onSubmit={this.onSubmit}>
+					<div className="form__item">
+						<input className="form-control"
+							type="text"
+							onChange={this.onChangeTitle}
+							value={title}
+							placeholder="Заголовок"
+							disabled={sending}
+						/>
+					</div>
+					<div className="form__item">
+						<textarea className="form-control form-control--textarea"
+							onChange={this.onChangeText}
+							id="text"
+							value={ text }
+							placeholder="Текст"
+							disabled={sending}
+						/>
+					</div>
+					<div className="form__btns">
+						<button className="btn btn--primary"
+							disabled={sending} type="submit"
+						>{ sending ? '...Сохранение' : 'Отправить' }</button>
+					</div>
+					{ error && <p className="text-error">{ error }</p> }
 				</form>
-				{ error &&
-					<p>{ error }</p>
-				}
-				{ sending && <span>Сохранение</span>}
 			</>
 		);
 	}

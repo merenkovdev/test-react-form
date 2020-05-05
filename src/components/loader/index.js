@@ -1,8 +1,13 @@
 import React from 'react';
+import './loader.scss';
 
 const Loader = () => {
 	return (
-		<div>Загрузка</div>
+		<div className="loader">
+			<div className="loader__bounce"></div>
+			<div className="loader__bounce"></div>
+			<div className="loader__bounce"></div>
+		</div>
 	);
 };
 

@@ -1,0 +1,9 @@
+.publications {
+	&--empty {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 150px;
+		font-size: 20px;
+	}
+}

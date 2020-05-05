@@ -1,4 +1,5 @@
 import React from 'react';
+import './publication-list-item.scss';
 
 const PublicationListItem = ({ publication, handleEdit, handleRemove }) => {
 	const {
@@ -8,14 +9,14 @@ const PublicationListItem = ({ publication, handleEdit, handleRemove }) => {
 	} = publication;
 
 	return (
-		<article>
+		<article className="article">
 			<header>
 				<h2>{ title }</h2>
 			</header>
 			<p>{ text }</p>
-			<div>
-				<button onClick={() => handleEdit(id)} type="button">Редактировать</button>
-				<button onClick={() => handleRemove(id)} type="button">Удалить</button>
+			<div className="article__actions">
+				<button className="btn btn--small btn--secondary" onClick={() => handleEdit(id)} type="button">Редактировать</button>
+				<button className="btn btn--small btn--secondary" onClick={() => handleRemove(id)} type="button">Удалить</button>
 			</div>
 		</article>
 	);

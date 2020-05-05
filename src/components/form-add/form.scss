@@ -1,0 +1,37 @@
+@import 'src/styles/buttons';
+
+.form {
+	max-width: 600px;
+	margin: 0 auto 20px;
+
+	&__item {
+		margin-bottom: 20px;
+	}
+
+	&__btns {
+		text-align: center;
+	}
+}
+
+.form-control {
+	display: block;
+	width: 100%;
+	padding: 10px 20px;
+	line-height: 1.5;
+	color: #333;
+	background-color: #fff;
+	border: 1px solid #cacaca;
+
+	&--textarea {
+		resize: vertical;
+		min-height: 100px;
+	}
+
+	&[disabled] {
+		background-color: #eee;
+	}
+}
+
+.text-error {
+	color: #ff4136;
+}

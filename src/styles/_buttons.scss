@@ -1,0 +1,36 @@
+.btn {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 10px 20px;
+	min-width: 200px;
+	text-align: center;
+	user-select: none;
+	line-height: 1.5;
+	color: #333;
+	border: none;
+	cursor: pointer;
+
+	&:hover {
+		box-shadow: inset 0 0 0 99px rgba(0, 0, 0, .2);
+	}
+
+	&[disabled] {
+		pointer-events: none;
+	}
+
+	&--primary {
+		color: #fff;
+		background-color: #007bff;
+	}
+
+	&--secondary {
+		border: 1px solid #6c757d;
+		background: none;
+	}
+
+	&--small {
+		min-width: auto;
+		font-size: 14px;
+		padding: 5px 10px;
+	}
+}

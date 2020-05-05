@@ -14,11 +14,11 @@ import { compose } from 'src/utils';
 import './style.scss';
 
 const PublicationListView = ({ publications, handleRemove, handleEdit }) => {
+	const postsAvailable = Array.isArray(publications) && publications.length;
+
 	return (
-		<div className="publications">
-			{ !Array.isArray(publications) || !publications.length ?
-				<span>Список постов пуст</span>
-			:
+		<div className={`publications${ !postsAvailable ? ' publications--empty' : '' }`}>
+			{ postsAvailable ?
 				publications.map(
 					publication => (
 						<PublicationListItem
@@ -31,6 +31,8 @@ const PublicationListView = ({ publications, handleRemove, handleEdit }) => {
 						/>
 					)
 				)
+			:
+				<span>Список постов пуст</span>
 			}
 		</div>
 	);
@@ -51,7 +53,10 @@ class PublicationList extends Component {
 
 		return (
 			loading ?
-				<Loader /> :
+				<div className="publications publications--empty">
+					<Loader />
+				</div>
+				:
 				<PublicationListView
 					{...{
 						publications,

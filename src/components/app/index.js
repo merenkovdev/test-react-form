@@ -6,7 +6,7 @@ import './app.scss';
 const App = () => {
 	return (
 		<div className="main">
-			<h1>Форма</h1>
+			<h1>Форма редатирования постов</h1>
 			<FormAdd />
 			<PublicationList />
 		</div>

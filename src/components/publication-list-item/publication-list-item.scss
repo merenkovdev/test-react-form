@@ -1,0 +1,21 @@
+@import 'src/styles/buttons';
+
+.article {
+	margin-bottom: 20px;
+
+	p {
+		margin: 0 0 1em;
+	}
+
+	h2 {
+		margin: 0 0 .8em;
+	}
+
+	&__actions {
+		button {
+			& + button {
+				margin-left: -1px;
+			}
+		}
+	}
+}
