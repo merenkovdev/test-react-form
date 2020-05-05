@@ -39,12 +39,10 @@ const setPublicationText = (text) => ({
 	payload: text,
 });
 
-const editPublication = (id) => {
-	return {
-		type: 'EDIT_PUBLICATION',
-		payload: id,
-	};
-};
+const editPublication = (id) => ({
+	type: 'EDIT_PUBLICATION',
+	payload: id,
+});
 
 const removePublication = (id) => ({
 	type: 'REMOVE_PUBLICATION',
@@ -56,6 +54,20 @@ const fetchPublications = (publicationsService) => () => (dispatch) => {
 	publicationsService.getData()
 		.then((data) => dispatch(publicationsLoaded(data)))
 		.catch((err) => dispatch(publicationsError(err)));
+};
+
+const handlePublicationEditing = () => (id) => (dispatch) => {
+	const form = document.getElementById('form');
+
+	dispatch(editPublication(id));
+
+	if (form) {
+		const box = form.getBoundingClientRect();
+
+		if (box.top < 0) {
+			window.scrollTo(0, 0);
+		}
+	}
 };
 
 const savePublication = () => () => (dispatch, getState) => {
@@ -88,7 +100,7 @@ export {
 	setPublicationText,
 	setErrorFormPublication,
 	savePublication,
-	editPublication,
+	handlePublicationEditing,
 	removePublication,
 	fetchPublications,
 };

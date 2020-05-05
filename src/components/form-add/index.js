@@ -69,7 +69,7 @@ class FormAdd extends Component {
 
 		return (
 			<>
-				<form className="form" onSubmit={this.onSubmit}>
+				<form className="form" id="form" onSubmit={this.onSubmit}>
 					<div className="form__item">
 						<input className="form-control"
 							type="text"

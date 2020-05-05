@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
-	editPublication,
+	handlePublicationEditing,
 	removePublication,
 	fetchPublications,
 } from 'src/actions';
@@ -77,7 +77,7 @@ const mapStateToProps =	({ publications: { items, loading }}) => {
 
 const mapDispatchToProps = (dispatch, { publicationService }) => {
 	return bindActionCreators({
-		handleEdit: editPublication,
+		handleEdit: handlePublicationEditing(),
 		handleRemove: removePublication,
 		fetchPublications: fetchPublications(publicationService),
 	}, dispatch);

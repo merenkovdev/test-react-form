@@ -15,8 +15,14 @@ const PublicationListItem = ({ publication, handleEdit, handleRemove }) => {
 			</header>
 			<p>{ text }</p>
 			<div className="article__actions">
-				<button className="btn btn--small btn--secondary" onClick={() => handleEdit(id)} type="button">Редактировать</button>
-				<button className="btn btn--small btn--secondary" onClick={() => handleRemove(id)} type="button">Удалить</button>
+				<button className="btn btn--small btn--secondary"
+					onClick={() => handleEdit(id)}
+					type="button"
+				>Редактировать</button>
+				<button className="btn btn--small btn--secondary"
+					onClick={() => handleRemove(id)}
+					type="button"
+				>Удалить</button>
 			</div>
 		</article>
 	);
