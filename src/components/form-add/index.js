@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -115,3 +116,18 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormAdd);
+
+FormAdd.propTypes = {
+	error: PropTypes.string,
+	sending: PropTypes.bool,
+	id: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number,
+	]),
+	title: PropTypes.string,
+	text: PropTypes.string,
+	handleSave: PropTypes.func,
+	handleError: PropTypes.func,
+	onChangeTitle: PropTypes.func,
+	onChangeText: PropTypes.func,
+};

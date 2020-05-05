@@ -52,6 +52,7 @@ const updateForm = (state, action) => {
 				id,
 				title: publication.title,
 				text: publication.text,
+				error: '',
 			};
 		}
 

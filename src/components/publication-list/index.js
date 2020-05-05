@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -87,3 +88,17 @@ export default compose(
 	withPublicationService(),
 	connect(mapStateToProps, mapDispatchToProps)
 )(PublicationList);
+
+const publicationListTypes = {
+	publications: PropTypes.array,
+	handleEdit: PropTypes.func,
+	handleRemove: PropTypes.func,
+};
+
+PublicationList.propTypes = {
+	loading: PropTypes.bool,
+	fetchPublications: PropTypes.func,
+	...publicationListTypes,
+};
+
+PublicationListView.propTypes = publicationListTypes;

@@ -2,7 +2,7 @@ import React from 'react';
 import { PublicationServiceConsumer } from '../publication-service-context';
 
 const withPublicationService = () => (Wrapped) => {
-	return function ComponentWithData(props) {
+	return function ComponentWithData (props) {
 		return (
 			<PublicationServiceConsumer>
 				{

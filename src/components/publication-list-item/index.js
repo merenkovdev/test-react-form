@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './publication-list-item.scss';
 
 const PublicationListItem = ({ publication, handleEdit, handleRemove }) => {
@@ -29,3 +30,16 @@ const PublicationListItem = ({ publication, handleEdit, handleRemove }) => {
 };
 
 export default PublicationListItem;
+
+PublicationListItem.propTypes = {
+	publication: PropTypes.shape({
+		id: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.number,
+		]),
+		title: PropTypes.string,
+		text: PropTypes.string
+	}),
+	handleEdit: PropTypes.func,
+	handleRemove: PropTypes.func,
+};
